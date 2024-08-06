@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Editable To-Do List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
+    <script>
+      $(document).ready(function () {
+        // Toggle input field to edit the task
+        $(document).on("click", ".edit-task", function () {
+          var listItem = $(this).closest("li");
+          var taskText = listItem.find(".task-text").text();
+          listItem.find(".task-text").addClass("hidden");
+          listItem
+            .find(".edit-input")
+            .val(taskText)
+            .removeClass("hidden")
+            .focus();
+          $(this).addClass("hidden");
+          listItem.find(".save-task").removeClass("hidden");
+        });
+
+        // Save the edited task
+        $(document).on("click", ".save-task", function () {
+          var listItem = $(this).closest("li");
+          var newTaskText = listItem.find(".edit-input").val();
+          listItem.find(".task-text").text(newTaskText).removeClass("hidden");
+          listItem.find(".edit-input").addClass("hidden");
+          $(this).addClass("hidden");
+          listItem.find(".edit-task").removeClass("hidden");
+        });
+
+        // Remove a task
+        $(document).on("click", ".remove-task", function () {
+          $(this).closest("li").remove();
+        });
+
+        // Add a new task
+        $("#addTaskButton").click(function () {
+          var newTask = $("#newTaskInput").val();
+          if (newTask.trim() !== "") {
+            var newListItem =
+              "<li>" +
+              '<input type="checkbox" class="task-checkbox">' +
+              '<span class="task-text">' +
+              newTask +
+              "</span>" +
+              '<input type="text" class="edit-input hidden">' +
+              '<button class="edit-task">Edit</button>' +
+              '<button class="save-task hidden">Save</button>' +
+              '<button class="remove-task">X</button>' +
+              "</li>";
+            $("#taskList").append(newListItem);
+            $("#newTaskInput").val("");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Kit tea lg game jig exam jes dl hey</h1>
+    <!-- <input type="text" id="newTaskInput" placeholder="Add new task" />
+    <button id="addTaskButton">+</button>
+    <ul id="taskList">
+      <li>
+        <input type="checkbox" class="task-checkbox" />
+        <span class="task-text">This is an example of task #1</span>
+        <input type="text" class="edit-input hidden" />
+        <button class="edit-task">Edit</button>
+        <button class="save-task hidden">Save</button>
+        <button class="remove-task">X</button>
+      </li>
+    
+    </ul> -->
+  </body>
+</html>
